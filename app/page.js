@@ -6,7 +6,7 @@ export default function App() {
     <main>
       <h1>CPRG306: Web Development 2 - Assignments</h1>
       <p>
-        <Link href="/app/week-2/pageWeek2">
+        <Link href="\week-2">
           Week 2 Assignment
         </Link>
       </p>
