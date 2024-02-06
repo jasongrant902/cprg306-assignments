@@ -1,15 +1,13 @@
 import React from 'react';
-import Link from 'next/link';
+import ItemList from './itemList';
 
-export default function App() {
+const Page = () => {
   return (
-    <main>
-      <h1>CPRG306: Web Development 2 - Assignments</h1>
-      <p>
-        <Link href="\week-2">
-          Week 2 Assignment
-        </Link>
-      </p>
+    <main className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Shopping List</h1>
+      <ItemList />
     </main>
   );
-}
+};
+
+export default Page;
