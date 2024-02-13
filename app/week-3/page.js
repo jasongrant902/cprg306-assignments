@@ -1,5 +1,6 @@
 import React from 'react';
-import ItemList from './itemList';
+import ItemList from './item-list';
+import Item from './item';
 
 const Page = () => {
   return (

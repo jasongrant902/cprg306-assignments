@@ -1,4 +1,5 @@
 import React from 'react';
+import Item from './item';
 
 const ItemList = ({}) => {
     
@@ -74,3 +75,5 @@ const ItemList = ({}) => {
         category: "household",
       };
 }
+
+export default ItemList;
