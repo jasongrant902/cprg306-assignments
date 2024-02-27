@@ -74,6 +74,8 @@ const ItemList = ({}) => {
         quantity: 4,
         category: "household",
       };
+
+      return(<div><Item name={item1.name}/></div>)
 }
 
 export default ItemList;
