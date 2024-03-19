@@ -5,18 +5,22 @@ const MealIdeas = ({ ingredient }) => {
     const [selectedIngredient, setSelectedIngredient] = useState('');
 
     useEffect(() => {
-        if (!ingredient) {
-            // If no ingredient is selected, clear the list of meals and selected ingredient
-            setMeals([]);
-            setSelectedIngredient('');
-            return;
-        }
+
+        const cleanUpIngredient = (ingredientName) => {
+            if (ingredientName.includes(',')) {
+                const parts = ingredientName.split(',').map(part => part.trim());
+                return parts[0];
+            } else {
+                return ingredientName.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, '').replace(/\d+(\.\d+)?\s?(l|L|kg|g|ml|lb|oz|each)/g, '').trim();
+            }
+        };
 
         setSelectedIngredient(ingredient);
 
         const fetchMealIdeas = async () => {
             try {
-                const apiURL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+                const cleanedIngredient = cleanUpIngredient(ingredient);
+                const apiURL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${cleanedIngredient}`;
                 const response = await fetch(apiURL);
     
                 if (!response.ok) {
@@ -24,12 +28,11 @@ const MealIdeas = ({ ingredient }) => {
                 }
     
                 const data = await response.json();
-                console.log("API response:", data); // Log the API response for debugging
+                console.log("API response:", data);
                 const fetchedMeals = data.meals || [];
                 setMeals(fetchedMeals);
             } catch (error) {
                 console.error('Error loading meal ideas:', error);
-                // Handle error gracefully, for example:
                 setMeals([]);
             }
         };
@@ -42,7 +45,7 @@ const MealIdeas = ({ ingredient }) => {
         <div>
             <h2>Meal ideas with {selectedIngredient}</h2>
             <ul className="space-y-4">
-                {meals.map((meal) => (
+                {meals && meals.map((meal) => (
                     <li key={meal.idMeal} className="bg-red-500 p-2 rounded-md shadow-md cursor-pointer hover:bg-red-600 transition-colors">
                         <div className="text-sm font-semibold">{meal.strMeal}</div>
                         <div className="text-xs text-gray-600">Category: {meal.strCategory}</div>
