@@ -1,36 +1,21 @@
-import React from 'react';
-import Link from 'next/link';
-import { useUserAuth } from './_utils/auth-context';
+"use client"
 
-const HomePage = () => {
-  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
-  const handleLogin = async () => {
-    await gitHubSignIn();
-  };
+import { engageAuth } from "./_utils/auth-context"
 
-  const handleLogout = async () => {
-    await firebaseSignOut();
+const Week8 = () => {
+  const { user, gitHubSignIn, firebaseSignOut } = engageAuth();
+
+  const signIn = async () => {
+      await gitHubSignIn();
   };
 
   return (
-    <div>
-      {user ? (
-        <div>
-          <p>Welcome, {user.displayName} ({user.email})</p>
-          <button onClick={handleLogout}>Logout</button>
-          <Link href="/week-8/shopping-list">
-            <a>Go to Shopping List</a>
-          </Link>
-        </div>
-      ) : (
-        <div>
-          <p>Please log in to access the application.</p>
-          <button onClick={handleLogin}>Login with GitHub</button>
-        </div>
-      )}
-    </div>
+      <div className="bg-blue-200 h-screen flex">
+          {user ? user : "Hello there"}
+          <button onClick={signIn}>Sign in</button>
+      </div>
   );
 };
 
-export default HomePage;
+export default Week8
